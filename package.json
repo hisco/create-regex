@@ -1,0 +1,33 @@
+{
+  "name": "create-regex",
+  "version": "0.0.1",
+  "description": "JS regex helper, easy way to create complex regular expressio in js",
+  "main": "src/create-regex.js",
+  "types": "src/create-regex.d.ts",
+  "scripts": {
+    "test": "mocha --recursive --reporter spec",
+    "watch-test": "mocha --recursive --watch --reporter spec",
+    "test-ci": "istanbul cover ./node_modules/mocha/bin/_mocha test/**/*.js --report lcovonly -- -R spec && cat ./coverage/lcov.info"
+  },
+  "devDependencies": {
+    "mocha": "6.1.4",
+    "chai": "4.2.0",
+    "chai-spies": "1.0.0",
+    "istanbul": "0.4.5"
+  },
+  "keywords": [
+    "regex",
+    "regular expression",
+    "regexp"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hisco/create-regex.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hisco/create-regex/issues"
+  },
+  "homepage": "https://github.com/hisco",
+  "author": "Eyald <hisco@googlegroups.com‬>",
+  "license": "MIT"
+}
