@@ -1,6 +1,6 @@
 {
   "name": "create-regex",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "JS regex helper, easy way to create complex regular expressio in js",
   "main": "src/create-regex.js",
   "types": "src/create-regex.d.ts",

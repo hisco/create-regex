@@ -2,6 +2,14 @@
 function insureArray(stringOrArray = ''){
     return stringOrArray instanceof Array ? stringOrArray : [stringOrArray];
 }
+const REGEX_FLAG_MAPS = [
+    ['global','g'],
+    ['multiline' , 'm'], 
+    ['ignoreCase' , 'i'], 
+    ['dotAll' , 's'], 
+    ['unicode' , 'u'], 
+    ['sticky' , 'y'], 
+]
 class RegExpFactory{
     constructor(props = {}){
         this.mixins = props.mixins || {};
@@ -16,6 +24,21 @@ class RegExpFactory{
         })
         const buildResult = cb.call(this,helpers);
         return new (this.RegExp)(Array.prototype.join.call(typeof buildResult == 'string' ? [buildResult] : buildResult,'|'),flags)
+    }
+    clone(regex){
+        const flags = [];
+        for (let index = 0; index < REGEX_FLAG_MAPS.length; index++) {
+            const [key,flag] = REGEX_FLAG_MAPS[index];
+            if (regex[key]){
+                flags.push(flag)
+            }
+        }
+
+        const result = new (this.RegExp)(regex.source, flags.join(''));
+        if (typeof regex.lastIndex === 'number') {
+            result.lastIndex = regex.lastIndex;
+        }
+        return result;
     }
     nonCaptureGroup(pattern){
         return  `(?:${pattern})`;

@@ -1,12 +1,20 @@
 language: node_js
 node_js:
-  - "10.16.0"
-  - "12.4.0"
+- 10.16.0
+- 12.4.0
 cache:
   directories:
-    - "node_modules"
+  - node_modules
 install:
-  - npm install
+- npm install
 script:
-  - "npm run test"
-after_script: "npm install coveralls@3.0.1 && npm run test-ci && cat ./coverage/lcov.info | coveralls"
+- npm run test
+after_script: npm install coveralls@3.0.1 && npm run test-ci && cat ./coverage/lcov.info
+  | coveralls
+deploy:
+  provider: npm
+  email: hisco@googlegroups.com
+  api_key:
+    secure: MF4AcJqCJZ01VajN+9/ufh1KkGc4PQxsWf5200LPVJ34jPUtbbd1abpwaHPh9QvRDr38BG1roONsNujNVwgj4UGHB2ncDO/8VP3pJg6MSxSA3YpeFhIjdy4ZPBQwYROeo6W0Sfdrmuwnzds/eDQa2OuoAzbUhER6hZyk99Pi+WxMVI6u823+jaegcSr+exzVTWnp96p7zLWtsFEqgMfv1CIyqG9SdO79Vm5j/DL74SovQWyNw80B2F+zM4XeFy/PHuPIBByZz5AJZCtFuJeV8VRHZsbHHDhKJSv3JTQdevmXArb/gY0fwDvR/L7zCsVhuHLMWjOGIjwkW4NuWljWdB3IKCc/jKHE3a2KjxNap79VWZVtGOjQJ6Ii+5jN7hbggeVFWhxBPtoUwVhQtzIKNEffastYpHVjIM2L0oAXOUY0BKrhrVyKs6XufTH4t6I3mFhB4coeh31aajhRNvIGyH8CIHqHggfLYddBmdBI7voBVlizQN2qqk2h/45b814zA3r0EvI/SVjng+HKEbFNJeTqWCD7OFx2b/USHF3DKSEEcG9hWTpMRlyRIOQz8MU75/afRSQshrWGYadBw0uagPR9iGsSKQifuEOqKXix9wv5GJNA01wOCw84RvBSaX/zsNjwYs6wNVwE+wjp+etUl42Kpb7aXjqGwcXFiD7guqA=
+  on:
+    repo: hisco/create-regex

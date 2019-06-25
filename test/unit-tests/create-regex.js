@@ -13,7 +13,7 @@ describe('RegExpFactory', ()=> {
         })
     });
     describe('#create', ()=> {
-        it('should create regex with mixins' , ()=>{
+        it('should create regex with mixins when result is string' , ()=>{
             const mixins = {
                 test: {
                 }
@@ -25,6 +25,23 @@ describe('RegExpFactory', ()=> {
             const regex = factory.create((mixins)=>{
                 calledWith = mixins;
                 return '45'
+            } , 'mi');
+
+            expect(regex.source).to.equal('45'); 
+            expect(calledWith && calledWith.test).to.eq(mixins.test) 
+        });
+        it('should create regex string with mixins when result is arrary of strings' , ()=>{
+            const mixins = {
+                test: {
+                }
+            }
+            let calledWith; 
+            factory = new RegExpFactory({
+                mixins
+            })
+            const regex = factory.create((mixins)=>{
+                calledWith = mixins;
+                return ['45']
             } , 'mi');
 
             expect(regex.source).to.equal('45'); 
@@ -69,5 +86,43 @@ describe('RegExpFactory', ()=> {
             expect(indexFactory()).to.eq(1)
             expect(indexFactory()).to.eq(2)
         })
+    })
+    describe('#clone', ()=> {
+        it('should clone the regex source and flags enabled' , ()=>{
+            const regex = factory.clone(/aa/mgiuys);
+
+            expect(regex.source).eq('aa')
+            expect(regex.global).eq(true)
+            expect(regex.multiline).eq(true)
+            expect(regex.ignoreCase).eq(true)
+            expect(regex.dotAll).eq(true)
+            expect(regex.sticky).eq(true)
+            expect(regex.unicode).eq(true)
+        });
+        it('should clone the regex source and flags disabled' , ()=>{
+            const regex = factory.clone(/aa/);
+
+            expect(regex.source).eq('aa')
+            expect(regex.global).eq(false)
+            expect(regex.multiline).eq(false)
+            expect(regex.ignoreCase).eq(false)
+            expect(regex.dotAll).eq(false)
+            expect(regex.sticky).eq(false)
+            expect(regex.unicode).eq(false)
+        });
+        it('should clone the regex lastIndex if number' , ()=>{
+            const r = /aa/;
+            r.lastIndex = 101;
+            const regex = factory.clone(r);
+
+            expect(regex.lastIndex).eq(101)
+        });
+        it('should not clone the regex lastIndex if not a number' , ()=>{
+            const r = /aa/;
+            r.lastIndex = 'this is not a number';
+            const regex = factory.clone(r);
+
+            expect(regex.lastIndex).eq(0)
+        });
     })
 });

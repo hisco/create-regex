@@ -7,10 +7,10 @@
 
   Simple and powerful utility to create complex regex in javascript
 # Create regex
-When createing long and powerful regular expression it becomes hard to rember and manage to numerous signs and sub patterns.
+When creating long and powerful regular expression it becomes hard to remember and manage to numerous signs and sub patterns.
 
-`create-regex` allows you to write the regex in a more code like approche while also reducing burden of some boilerplate actions.
-It also encourges the usage of regex named groups.
+`create-regex` allows you to write regex in code like approche while also reducing the burden of some boilerplate actions.
+It also encourges the usage of regex named groups, which make the matching part of the regex much simpler.
 
 ## Simple to use
 ```js
@@ -25,9 +25,9 @@ It also encourges the usage of regex named groups.
     group
   })=>
     nonCaptureGroupWithSeperator([
-      group(`digits`,`\\d+`),
-      group(`words`, `\\w+`),
-      group(`else`, `[\\s\\S]+`)
+      group('digits','\\d+'),
+      group('words', '\\w+'),
+      group('else', '[\\s\\S]+')
     ])
   ,'gm');
   /*
@@ -35,7 +35,7 @@ It also encourges the usage of regex named groups.
     /(?:(?:(?<digits>\d+))|(?:(?<words>\w+))|(?:(?<else>[\s\S]+)))/gm
     Try it with the following string (we higly recommend to using the site `regex101`)
   */
-  const str = `121212ababa...{}`;
+  const str = '121212ababa...{}';
   let match;
 
   while ((match = regex.exec(str)) !== null) {
@@ -58,7 +58,7 @@ It also encourges the usage of regex named groups.
 ```
 # API
 The API is very simple and yet powerfull.
-The factory accepts mixins the you will be able to during create
+The factory accepts mixins that you will be able use during create
 
 ```js
   const regexFactory = new RegExpFactory({ 
@@ -78,13 +78,13 @@ The factory accepts mixins the you will be able to during create
       stringSigns
     })=>
       nonCaptureGroupWithSeperator([
-        group(`digits`,
-          wrapPattern(`\\d+`,stringSigns)
+        group('digits',
+          wrapPattern('\\d+',stringSigns)
         ),
-        group(`words`,
-          wrapPattern(`\\w+`,stringSigns)
+        group('words',
+          wrapPattern('\\w+',stringSigns)
         ),
-        group(`else`, `[\\s\\S]+`)
+        group('else', '[\\s\\S]+')
       ])
     ,'gm');
   /* Produces the following regex:
